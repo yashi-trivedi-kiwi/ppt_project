@@ -7,6 +7,8 @@ class CustomUser(models.Model):
     password = models.CharField(max_length=255, null=True, blank=True)
     phone = models.CharField(max_length=255, null=True, blank=True)
     profile_pic = models.FileField(default=None, null=True, blank=True)
+    url = models.URLField(max_length=255, null=True, blank=True)
+    card_number = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta(object):
         db_table = "custom_user"

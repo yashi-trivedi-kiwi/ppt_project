@@ -1,43 +1,72 @@
+{% load static %}
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Makes "field" always required.</title>
-<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <title>Document</title>
 </head>
 <body>
-<form id="registerForm">
-<label for="fullname">Fullname </label>
-<input type="text" class="left" id="fullname" name="fullname">
-<br/>
-<label for="email">Email </label>
-<input type="email" class="left" id="email" name="email">
-<br/>
-<label for="phone">Phone </label>
-<input type="number" class="left" id="phone" name="phone">
-<br/>
-<label for="profile_pic">Profile </label>
-<input type="file" class="left" id="profile_pic" name="profile_pic">
-<br/>
-<input type="submit" value="Submit">
+<form id="registerForm" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="container">
+    <div>
+        <h1>Form validations using jQuery</h1>
+        <br>
+    </div>
+    <div>
+        <div class="form-group">
+        <label for="fullname">Fullname </label>
+        <input type="text" class="form-control" value="{{fullname}}" id="fullname" name="fullname">
+    </div>
+    <div class="form-group">
+        <label for="email">Email </label>
+        <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone </label>
+        <input type="number" class="form-control" value="{{phone}}" id="phone" name="phone">
+    </div>
+    <div class="form-group">
+        <label for="profile_pic">Profile </label>
+        <input type="file" class="form-control" id="profile_pic" value="{{profile_pic}}" name="profile_pic" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label for="url">Url </label>
+        <input type="url" class="form-control" id="url" value="{{url}}" name="url" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label for="card_number">Card Number </label>
+        <input type="number" class="form-control" id="card_number" value="{{card_number}}" name="card_number" accept="image/*">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit">
+    </div>
+</div>
 </form>
-<!--<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>-->
-<!--<script>-->
-<!--// just for the demos, avoids form submit-->
-<!--jQuery.validator.setDefaults({-->
-<!--  debug: true,-->
-<!--  success: "valid"-->
-<!--});-->
-<!--$( "#myform" ).validate({-->
-<!--  rules: {-->
-<!--    field: {-->
-<!--      required: true-->
-<!--    }-->
-<!--  }-->
-<!--});-->
-<!--</script>-->
+<script>
+    window.onload = (event) =>{
+        email_exists = "{{email_exists}}";
+        if (email_exists == 'True'){
+            $("#error-text-message").html('{{error_message}}');
+            $("#error_message_alert").addClass('show')
+            setTimeout(function () { $("#error_message_alert").removeClass('show')}, 10000);
+        }
+    };
+</script>
+<script src="{% static 'jquery-min.js' %}"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+<script src="https://unpkg.com/jquery-input-mask-phone-number@1.0.14/dist/jquery-input-mask-phone-number.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="{% static 'validations.js' %}"></script>
 </body>
 </html>
