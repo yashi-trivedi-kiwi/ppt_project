@@ -16,7 +16,7 @@ class UserRegisterView(FormView):
         fullname = request.POST['fullname']
         email = request.POST['email']
         phone = request.POST['phone']
-        profile_pic = request.POST['profile_pic']
+        profile_pic = request.FILES['profile_pic']
         url = request.POST['url']
         card_number = request.POST['card_number']
         user = CustomUser.objects.create(fullname=fullname, email=email, phone=phone, profile_pic=profile_pic, url=url,
