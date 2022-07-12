@@ -15,11 +15,12 @@ class UserRegisterView(FormView):
     def post(self, request):
         fullname = request.POST['fullname']
         email = request.POST['email']
+        username=request.POST['username']
         phone = request.POST['phone']
-        profile_pic = request.FILES['profile_pic']
+        profile_pic = request.FILES.get('profile_pic')
         url = request.POST['url']
         card_number = request.POST['card_number']
-        user = CustomUser.objects.create(fullname=fullname, email=email, phone=phone, profile_pic=profile_pic, url=url,
+        user = CustomUser.objects.create(fullname=fullname, email=email,username=username, phone=phone, profile_pic=profile_pic, url=url,
                                          card_number=card_number)
         user.save()
         submit_url = reverse('register')

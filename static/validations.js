@@ -12,6 +12,10 @@ $(document).ready(function(){
           minlength:5,
           emailExt: true
         },
+        username: {
+        required: true,
+        uniqueUserName: true
+        },
         phone: {
           required: true,
           minlength:14
@@ -57,6 +61,20 @@ $(document).ready(function(){
         $(element).removeClass("error");
         }
     });
+    $.validator.addMethod("uniqueUserName", function(value, element) {
+      $.ajax({
+          type: "POST",
+           url: "php/get_save_status.php",
+          data: "checkUsername="+value,
+          dataType:"html",
+       success: function(msg)
+       {
+          // if the user exists, it returns a string "true"
+          if(msg == "true")
+             return false;  // already exists
+          return true;      // username is free to use
+       }
+      })}, "Username is Already Taken");
         jQuery.validator.addMethod("emailExt", function(value, element, param) {
             return value.match(/^[a-zA-Z0-9_\.%\+\-]+@[a-zA-Z0-9\.\-]+\.com/);
         },'Please provide a valid email.');
